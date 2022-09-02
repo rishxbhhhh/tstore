@@ -1,38 +1,116 @@
-.App {
-  text-align: center;
+/* ::-webkit-scrollbar {display:none;} */
+
+.main{
+  padding: 1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 98%;
+  flex-direction: row;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main__filter{
+  padding: 1rem;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: fit-content;
+  min-width: 12%;
+  margin: 1rem;
+  background-color: aliceblue;
+  box-shadow:
+    0 1px 1px hsl(0deg 0% 0% / 0.075),
+    0 2px 2px hsl(0deg 0% 0% / 0.075),
+    0 4px 4px hsl(0deg 0% 0% / 0.075),
+    0 8px 8px hsl(0deg 0% 0% / 0.075),
+    0 16px 16px hsl(0deg 0% 0% / 0.075)
+  ;
+  border-radius: 4px;
+}
+
+.main__products{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main__products__search{
+  margin: 1rem 0;
+  display: grid;
+  gap: 10px;
+  align-content: center;
+  width: 100%;
+
+}
+
+input#searchbox{
+  height: 25px;
+}
+
+.main__products__searchResults{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 16px;
 }
 
-.App-link {
-  color: #61dafb;
+.div__flex__row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.div__flex__column{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+#searchbox{
+  border-radius: 3px;
+  border: 1px solid silver;
+}
+
+.main__filter__title{
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.main__products__search__title{
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 560px) {
+  .main{
+    flex-direction: column; 
+    width: 100%;
   }
-  to {
-    transform: rotate(360deg);
+  .main__filter{
+    width: fit-content;
+    margin: 0.5rem auto;
+    padding: 2rem;
+    height: fit-content;
+  }
+  .main__products{
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+
+  .main__products__searchResults{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(180px, 1fr));
+    gap: 1rem;
+    align-items: center;
   }
 }
+

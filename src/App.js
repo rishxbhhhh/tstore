@@ -13,13 +13,15 @@ function App() {
   const [filtervalue, setfiltervalue] = useState(null);
   const [filterData, setfilterData] = useState(null);
   const [isCartOpen, setisCartOpen] = useState(false);
+  const [total,settotal] = useState(0);
+
+  // const [cartData , setcartData] = useState([]);
   const cartBtnHandler = (event) => {
     if (!isCartOpen) setisCartOpen(true);
     else setisCartOpen(false);
   };
 
-  // problem: filter is being added and removed but data is not being re-filtered when filter is removed.
-
+  
   // // to check if filtervalue is being updated and also to re render the filtered data
   useEffect(() => {
     if (filtervalue) {
@@ -44,15 +46,15 @@ function App() {
             "pink",
             "red",
           ].includes(filter)
-        )
+          )
           filtersSelectedInEachCategory[0]++;
-        else if (["men", "women"].includes(filter))
+          else if (["men", "women"].includes(filter))
           filtersSelectedInEachCategory[1]++;
         else if (["basic", "hoodie", "polo"].includes(filter))
-          filtersSelectedInEachCategory[3]++;
+        filtersSelectedInEachCategory[3]++;
         else if (["0-rs.250", "rs.251-rs.450", ">rs.450"].includes(filter))
           filtersSelectedInEachCategory[2]++;
-      });
+        });
 
       console.log(filtersSelectedInEachCategory);
 
@@ -66,31 +68,31 @@ function App() {
           });
           filteredDataByColor = Array.from(
             new Set(filteredDataByColor?.concat(tempData) || tempData)
-          );
-          // setfilterData(filteredDataByColor);  // do not uncomment or delete
-        });
-        console.log(`Items Returned by Color: ${filteredDataByColor.length}`);
-      }
-
-      // category 2: gender
-      if (filtersSelectedInEachCategory[1] > 0) {
-        filterArray.forEach((filter) => {
-          tempData = data.filter((obj) => {
+            );
+            // setfilterData(filteredDataByColor);  // do not uncomment or delete
+          });
+        
+        }
+        
+        // category 2: gender
+        if (filtersSelectedInEachCategory[1] > 0) {
+          filterArray.forEach((filter) => {
+            tempData = data.filter((obj) => {
             if (obj["gender"]?.toLowerCase() === filter) {
               return true;
             } else return false;
           });
           filteredDataByGender = Array.from(
             new Set(filteredDataByGender?.concat(tempData) || tempData)
-          );
-          // setfilterData(filteredDataByGender);  // do not uncomment or delete
-        });
-        console.log(`Items Returned by Gender: ${filteredDataByGender.length}`);
-      }
-
-      // // category 3: price
-      if (filtersSelectedInEachCategory[2] > 0) {
-        filterArray.forEach((filter) => {
+            );
+            // setfilterData(filteredDataByGender);  // do not uncomment or delete
+          });
+          
+        }
+        
+        // // category 3: price
+        if (filtersSelectedInEachCategory[2] > 0) {
+          filterArray.forEach((filter) => {
           tempData = data.filter((obj) => {
             let result = false;
             if (filter === "0-rs.250") {
@@ -98,30 +100,30 @@ function App() {
                 result = true;
               }
             }
-            if (filter === "rs.251-rs.450") {
+            else if (filter === "rs.251-rs.450") {
               if (obj["price"] >= 251 && obj["price"] <= 450) {
                 result = true;
               }
             }
-            if (filter === "rs.450") {
+            else if (filter === ">rs.450") {
               if (
                 obj["price"] > 450 &&
                 obj["price"] <= Number.MAX_SAFE_INTEGER
-              ) {
-                result = true;
+                ) {
+                  result = true;
               }
             }
             return result;
           });
           filteredDataByPrice = Array.from(
             new Set(filteredDataByPrice?.concat(tempData) || tempData)
-          );
-          console.log(filteredDataByPrice);
-          //     setfilterData(filteredDataByPrice); // do not uncomment or delete
-        });
-        console.log(`Items Returned by Price: ${filteredDataByPrice.length}`);
+            );
+            
+            //     setfilterData(filteredDataByPrice); // do not uncomment or delete
+          });
+        
       }
-
+      
       // category 4: type
       if (filtersSelectedInEachCategory[3] > 0) {
         filterArray.forEach((filter) => {
@@ -135,14 +137,14 @@ function App() {
           );
           // setfilterData(filteredDataByType); // do not uncomment or delete
         });
-        console.log(`Items Returned by Type: ${filteredDataByType.length}`);
+        
       }
-
+      
       // Now we have to select common in all these different filteredData with different categories
       let arrays = [data, data, data, data];
       if (filtersSelectedInEachCategory[0] > 0) arrays[0] = filteredDataByColor;
       if (filtersSelectedInEachCategory[1] > 0)
-        arrays[1] = filteredDataByGender;
+      arrays[1] = filteredDataByGender;
       if (filtersSelectedInEachCategory[2] > 0) arrays[2] = filteredDataByPrice;
       if (filtersSelectedInEachCategory[3] > 0) arrays[3] = filteredDataByType;
       tempData = arrays.shift().reduce(function (res, v) {
@@ -151,7 +153,7 @@ function App() {
           arrays.every(function (a) {
             return a.indexOf(v) !== -1;
           })
-        )
+          )
           res.push(v);
         return res;
       }, []);
@@ -159,7 +161,7 @@ function App() {
       setfilterData(tempData);
     }
   }, [filtervalue, data]);
-
+  
   const handleFilter = (event) => {
     let filterVal = event.target.value.toLowerCase();
     let ifFilterApplied = event.target.checked;
@@ -168,10 +170,10 @@ function App() {
       if (filtervalue) {
         joinedFilter = filtervalue.concat(" ", filterVal);
         setfiltervalue(joinedFilter);
-        console.log("Added Filter: " + joinedFilter);
+        
       } else if (!filtervalue) {
         setfiltervalue(filterVal);
-        console.log("Added First Filter: " + filterVal);
+        
       }
     } else if (!ifFilterApplied) {
       if (filtervalue) {
@@ -182,20 +184,20 @@ function App() {
         if (index === 0) {
           joinedFilter = joinedFilter.substring(sizeOfFilter + 1);
           setfiltervalue(joinedFilter);
-          console.log("Removed filter from beginning: " + filterVal);
+          
         }
         // case 2: if filter removed was at last
         else if (index === filtervalue.length - sizeOfFilter) {
           joinedFilter = joinedFilter.substring(0, index - 1);
           setfiltervalue(joinedFilter);
-          console.log("Removed filter from end: " + filterVal);
+          
         }
         // case 3: if filter to be removed is somewhere inside filtervalue
         else if (index > 0 && index < filtervalue.length - sizeOfFilter) {
           let stringReplaced = "".concat(" ", filterVal, " ");
           joinedFilter = joinedFilter.replace(stringReplaced, " ");
           setfiltervalue(joinedFilter);
-          console.log("Removed filter from middle: " + filterVal);
+          
         }
       }
       let filteredDataByColor = filterData.filter((obj) => {
@@ -203,16 +205,16 @@ function App() {
           obj["color"]?.toLowerCase() === filterVal ||
           obj["gender"]?.toLowerCase() === filterVal ||
           obj["type"]?.toLowerCase() === filterVal
-        ) {
-          return false;
-        } else return true;
-      });
-      setfilterData(filteredDataByColor);
-    }
-  };
+          ) {
+            return false;
+          } else return true;
+        });
+        setfilterData(filteredDataByColor);
+      }
+    };
 
-  const handleSearch = (event) => {
-    setsearch(event.target.value.toLowerCase());
+    const handleSearch = (event) => {
+      setsearch(event.target.value.toLowerCase());
     const searchdata = data.filter(checkSearch);
     setsearchResult(searchdata);
   };
@@ -224,21 +226,21 @@ function App() {
       obj["color"]?.toLowerCase().includes(searchdata) ||
       obj["type"]?.toLowerCase().includes(searchdata) ||
       obj["name"]?.toLowerCase().includes(searchdata)
-    ) {
-      return true;
-    } else return false;
-  }
-
-  //fetching data from api only once using useEffect with empty dependency array
-  useEffect(() => {
-    fetch(
-      `https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json`
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `This is an HTTP error: The status is ${response.status}`
-          );
+      ) {
+        return true;
+      } else return false;
+    }
+    
+    //fetching data from api only once using useEffect with empty dependency array
+    useEffect(() => {
+      fetch(
+        `https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json`
+        )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `This is an HTTP error: The status is ${response.status}`
+              );
         }
         return response.json();
       })
@@ -255,13 +257,22 @@ function App() {
       });
   }, []);
 
+  useEffect(()=>{
+    let temp=0;
+    data?.forEach((obj)=>{
+      temp+=(obj?.price*obj?.quantity);
+    });
+    settotal(temp);
+  },[data,total]);
+  
+
+  // problem: adding products to cart (cart not functional, only UI designed)
   return (
     <>
       <Cart
         cartData={data}
         isCartOpen={isCartOpen}
-        total={1999}
-        setisCartOpen={setisCartOpen}
+        total={total}
       />
       <Navbar cartBtnHandler={cartBtnHandler} isCartOpen={isCartOpen} />
       {/* main has children: main__filter and main__products */}
@@ -290,7 +301,7 @@ function App() {
                 multiple
                 value={name}
                 onChange={handleFilter}
-              />
+                />
               {name}
             </label>
           ))}
@@ -311,7 +322,7 @@ function App() {
           ))}
 
           <h4 className="filter__category">PRICE</h4>
-          {["0-rs.250", "rs.251-rs.450", "rs.450"].map((name) => (
+          {["0-rs.250", "rs.251-rs.450", ">rs.450"].map((name) => (
             <label key={name}>
               <input
                 id={name}
@@ -320,7 +331,7 @@ function App() {
                 multiple
                 value={name}
                 onChange={handleFilter}
-              />
+                />
               {name}
             </label>
           ))}
@@ -351,13 +362,13 @@ function App() {
               onChange={handleSearch}
               value={search}
               placeholder="color/name/type"
-            />
+              />
           </div>
           <div className="main__products__searchResults">
             {loading && <div>A moment please...</div>}
             {error && (
               <div>{`There is a problem fetching the get data - ${error}`}</div>
-            )}
+              )}
 
             {/* if only search provided then searchResult   */}
             {!filtervalue &&
@@ -383,19 +394,19 @@ function App() {
               filterData &&
               filterData.map((product) => (
                 <Card
-                  key={product?.id}
-                  imglink={
-                    product?.imageURL ||
-                    "https://cdn2.thecatapi.com/images/d8k.jpg"
-                  }
+                key={product?.id}
+                imglink={
+                  product?.imageURL ||
+                  "https://cdn2.thecatapi.com/images/d8k.jpg"
+                }
                   title={product?.name || "Temp"}
                   price={product?.price || 0}
                   gender={product?.gender.charAt(0) || "-"}
                   quantity={product?.quantity || 0}
-                />
+                  />
               ))}
 
-            {/* if not filter provided and no search given then output raw data   */}
+            {/* if no filter provided and no search given, then output should be raw data   */}
             {!filtervalue &&
               search === "" &&
               data &&
@@ -411,7 +422,8 @@ function App() {
                   gender={product?.gender.charAt(0) || "-"}
                   quantity={product?.quantity || 0}
                 />
-              ))}
+              ))
+              }
           </div>
         </div>
       </div>

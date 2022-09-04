@@ -19,8 +19,7 @@
 }
 
 .card:hover{
-    filter: brightness(0.6);
-    cursor: pointer;
+    filter: brightness(0.8);
 }
 
 .card__btn{
@@ -28,6 +27,10 @@
     background-color: black;
     padding: 8px 14px;
     border-radius: 6px;
+}
+
+.card__btn:hover{
+    cursor: pointer;
 }
 
 .card__img{
@@ -56,10 +59,6 @@ figure{
     color: red;
 }
 
-.card h3{
-    margin: 0;
-    padding: 0.5rem 0;
-}
 
 @media screen and (max-width: 560px) {
     
@@ -68,8 +67,8 @@ figure{
         text-align: center;
     }
 
-    .card h2{
-        font-size: x-large;
+    .card h1{
+        font-size: xx-large;
         padding: 0;
         margin: 0.5rem;
         width: 100%;

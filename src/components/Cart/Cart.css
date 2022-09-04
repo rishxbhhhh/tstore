@@ -9,7 +9,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background-color: beige;
+    background-color: azure;
     padding: 2rem;
     box-shadow:
         0 1px 1px hsl(0deg 0% 0% / 0.075),
@@ -44,6 +44,10 @@
     font-size: 4rem;
 }
 
+.cart__table{
+    border-collapse: collapse;
+}
+
 .cart__table th,
 td {
     border: 1px solid gray;
@@ -63,7 +67,7 @@ td {
         justify-content: flex-start;
         flex-direction: column;
         width: fit-content;
-        height: 65%;
+        height: 75%;
         position: fixed;
         left: 50%;
         top: 50%;
@@ -71,8 +75,9 @@ td {
         overflow: auto;
     }
 
-    .cart__summary {
-        border: none;
+    .cart__summary{
+        margin-top: 1rem;
+        width: fit-content;
     }
 
     .cart__table th,

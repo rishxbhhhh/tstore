@@ -1,7 +1,9 @@
 import React from "react";
 import "./Cart.css";
 
+
 function Cart(props) {
+  
   if (props.isCartOpen)
     return (
       <div className="cart">
@@ -23,7 +25,7 @@ function Cart(props) {
                   <td>{product["name"]}</td>
                   <td>{product["price"]}</td>
                   <td>{product["quantity"]}</td>
-                  <td>{eval(product["price"] * product["quantity"])}</td>
+                  <td>{product["price"] * product["quantity"]}</td>
                 </tr>
               ))}
             </tbody>

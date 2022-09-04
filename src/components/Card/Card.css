@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     padding: 0.3rem;
+    margin: 0.5rem 1rem;
     background-color: silver;
     align-content: center;
     justify-content: center;
@@ -25,7 +26,7 @@
 .card__btn{
     color: wheat;
     background-color: black;
-    padding: 4px 10px;
+    padding: 8px 14px;
     border-radius: 6px;
 }
 
@@ -55,9 +56,34 @@ figure{
     color: red;
 }
 
+.card h3{
+    margin: 0;
+    padding: 0.5rem 0;
+}
+
 @media screen and (max-width: 560px) {
+    
+    figcaption{
+        width: 100%;
+        text-align: center;
+    }
+
+    .card h2{
+        font-size: x-large;
+        padding: 0;
+        margin: 0.5rem;
+        width: 100%;
+        text-align: center;
+    }
+
     .card__img{
         width: 100%;
         height: 100%;
+    }
+
+    .card__btn{
+        width: 100%;
+        padding: 1rem;
+        font-size: large;
     }
 }

@@ -5,4 +5,4 @@ To run development build:
 4. Run "npm start"
 
 To run Optimised Production Build:
-1. Open "index.html" in the Build folder of extracted directory.
+1. open Link: https://rishxbhhhh.github.io/tstore
